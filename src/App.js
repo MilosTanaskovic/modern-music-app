@@ -2,6 +2,8 @@ import React from 'react'
 // import font
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay, faAngleLeft, faAngleRight, faCopyright, faTrademark} from '@fortawesome/free-solid-svg-icons'
+// import data
+import data from './data/data';
 
 // import components
 import Song from './components/Song';
