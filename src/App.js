@@ -9,6 +9,7 @@ import data from './data/data';
 import Song from './components/Song';
 import Player from './components/Player';
 import Footer from './components/Footer'
+import Library from './components/Library';
 
 // import styling
 import './style/App.css'
@@ -34,6 +35,7 @@ function App() {
         isPlaying={isPlaying}
         setIsPlaying={setIsPlaying}
       />
+      <Library songs={songs}/>
       <Footer  
         FontAwesomeIcon={FontAwesomeIcon} 
         faCopyright={faCopyright}
