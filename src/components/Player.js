@@ -1,14 +1,8 @@
-import React, {useRef, useState} from 'react'
+import React, { useState} from 'react'
 
 const Player = (props) => {
- const { FontAwesomeIcon, faPlay, faPause, faAngleLeft, faAngleRight, currentSong, isPlaying, setIsPlaying } = props
- // State
- const [infoSong, setInfoSong] = useState({
-  currentTime: 0,
-  duration: 0
- })
- // Ref
- const audioRef = useRef(null);
+ const {audioRef, FontAwesomeIcon, faPlay, faPause, faAngleLeft, faAngleRight, currentSong, isPlaying, setIsPlaying, setInfoSong, infoSong, songs } = props
+ 
  // Handlers
  const playSongHandler = () => {
   if(isPlaying){
@@ -19,12 +13,7 @@ const Player = (props) => {
    setIsPlaying(!isPlaying);
   }
  }
- const timeUpdateHandler = (e) => {
-  const current = e.target.currentTime;
-  const duration = e.target.duration;
-  setInfoSong({ ...infoSong, currentTime: current, duration } );
-  
- }
+ 
  const dragHandler = (e) => {
   audioRef.current.currentTime = e.target.value
   setInfoSong({...infoSong, currentTime: e.target.value});
@@ -34,6 +23,10 @@ const Player = (props) => {
       Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2)
     );
   }
+const skipTrackHandler = (direction) => {
+  const currentIndex = songs.findIndex((song) => song.id = currentSong.id);
+  console.log(currentIndex);
+}
 
  return (
   <div className="player__container">
@@ -42,7 +35,7 @@ const Player = (props) => {
     <input 
     onChange={dragHandler}
     min={0}
-    max={infoSong.duration}
+    max={infoSong.duration || 0}
     value={infoSong.currentTime}
     type="range" 
     name="" 
@@ -50,21 +43,15 @@ const Player = (props) => {
     <p>{getTime(infoSong.duration)}</p>
    </div>
    <div className="play-control">
-    <FontAwesomeIcon className="play-back" size="2x" icon={faAngleLeft}/>
+    <FontAwesomeIcon onClick={() => skipTrackHandler('skip-back')} className="play-back" size="2x" icon={faAngleLeft}/>
     <FontAwesomeIcon 
     onClick={playSongHandler} 
     className="play" 
     size="2x" 
     icon={isPlaying ? faPause : faPlay}
     />
-    <FontAwesomeIcon className="play-forward" size="2x" icon={faAngleRight}/>
+    <FontAwesomeIcon onClick={() => skipTrackHandler('skip-forward')} className="play-forward" size="2x" icon={faAngleRight}/>
    </div>
-   <audio 
-    onLoadedMetadata={timeUpdateHandler} 
-    onTimeUpdate={timeUpdateHandler} 
-    ref={audioRef} 
-    src={currentSong.audio}>
-    </audio>
    
   </div>
  )
