@@ -3,9 +3,9 @@ import React from 'react'
 function LibrarySong(props) {
  const { song, songs, setSongs, setCurrentSong, id, audioRef, isPlaying } = props
 
- const selectedSongHandler = () => {
+ const selectedSongHandler = async () => {
   const selectedSong = songs.filter((state) => state.id === id);
-  setCurrentSong(selectedSong[0]);
+  await setCurrentSong(selectedSong[0]);
   // How to Select/Add Active Song
   const activeSong = songs.map((song) => {
     if( song.id === id ) {
@@ -22,17 +22,8 @@ function LibrarySong(props) {
   });
   setSongs(activeSong);
  
+  if (isPlaying) audioRef.current.play();
   
-  // check is the song is playing
-  if(isPlaying) {
-   const playPromise = audioRef.current.play();
-   if(playPromise !== undefined){
-     playPromise.then((audio) => {
-     audioRef.current.play();
-    })
-   }
-  }
-  audioRef.current.play();
  }
  return (
   <div onClick={selectedSongHandler} className={`library__song ${song.active ? 'selected' : ''}`}>
