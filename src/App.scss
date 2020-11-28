@@ -13,6 +13,9 @@ h3,h4 {
  font-weight: 400;
  color: rgb(100, 100, 100);
 }
+.App {
+ transition: all 0.2s ease;
+}
 
 @import './components/player';
 @import './components/song';

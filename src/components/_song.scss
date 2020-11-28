@@ -12,3 +12,11 @@
   padding: 3rem 1rem 1rem 1rem;
  }
 }
+
+@media screen and (max-witdh: 768px){
+ .song__container{
+  img{
+   width: 60%;
+  }
+ }
+}
